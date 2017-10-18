@@ -1,6 +1,6 @@
-# Timekeeper for Unisys Employee's
+# Timekeeper for Unisys Federal Employee's
 
-## Purpose is to create a one or two-step process that eliminates human error while inputing time for multiple timesheets. Why multiple timesheets you ask? Ask the government. :) My goal is to make everything consistent with one command.
+## Purpose is to create a one or two-step process that eliminates human error while adding time for multiple timesheets. Why multiple timesheets you ask? Ask the government. :) My goal is to make everything consistent with one command.
 
 ## Requirements:
 	- Ruby
