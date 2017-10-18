@@ -14,9 +14,9 @@
 
 i.e., `ruby deltek-timesheet.rb time=8`
 
-This will start up the selenium webdriver and open up Unisys's deltek url and input your credentials, and do your timesheet. For now, if you work at CBP, (this part is being developed) it will also log into that system and input the time as well.
+This will start up the selenium webdriver and open up Unisys's deltek url and input your credentials, and do your timesheet. If you work at CBP, (this part is now being developed) it will eventually also log into that system and input the time as well.
 
-## But eaglejs, you have to put in a two-step verification!??
-Yes, that's why I said earlier that this is a one or two-step process, but all you have to do is reply to the text message and it will do the rest. Sorry, it's not 100% one-step, but it's the best I can do. I you have better ideas to get around this, I will love to hear them. :) 
+## But eaglejs, you have to put in a two-step verification code!??
+Yes unfortunately, you do... That's why I said earlier that this is a one or two-step process, but all you have to do is reply to the text message and it will do the rest. Sorry, it's not 100% one-step, but it's the best I can do. I you have better ideas to get around this, I will love to hear them. :) 
 
 
