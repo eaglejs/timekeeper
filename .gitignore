@@ -1,0 +1,4 @@
+.sonarlint
+.rubocop.yml
+.vscode
+config.json
