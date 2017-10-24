@@ -52,7 +52,7 @@ browser.costPointManageTimesheets.click
 
 # If it is Monday, put in timecode
 if DAY == 3
-	sleep 3
+	sleep 5
 	browser.costPointNewBtn.click
 	wait.until {browser.costPointNewTimeCodeSlot}
 	browser.costPointNewTimeCodeSlot.click
@@ -61,7 +61,9 @@ if DAY == 3
 	browser.costPointNewTimeCodeSlot.send_keys(data['timecode'])
 	sleep 3
 	browser.costPointNewPayType.send_keys(data['payType'])
-	sleep 2
+	sleep 3
+	browser.costPointNewTimeSlot.click
+	sleep 5
 	browser.costPointNewTimeSlot.clear()
 	browser.costPointNewTimeSlot.send_keys(TIMEINPUT)	
 else
