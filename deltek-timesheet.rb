@@ -14,11 +14,12 @@ end
 # define new browser
 browser = SiteElement.new(data['url'])
 
+wait = Selenium::WebDriver::Wait.new(timeout: 30)
+wait.until {browser.msUserName}
+
 # click on submit button
 browser.msUserName.send_keys(data['username'])
 browser.msElementBlock.click
-
-wait = Selenium::WebDriver::Wait.new(timeout: 20)
 
 wait.until {browser.msUserPass}
 
@@ -27,13 +28,11 @@ browser.msUserPass.send_keys(data['password'])
 browser.msSubmitLogin.click
 
 # Verify two-step login
-wait = Selenium::WebDriver::Wait.new(timeout: 20)
 wait.until {browser.verificationLink}
 
 browser.verificationLink.click
 
 # Wait for costPoint login to show up
-wait = Selenium::WebDriver::Wait.new(timeout: 30)
 wait.until {browser.costPointSystemInput}
 
 # Fill out Creds for Cost Point
@@ -41,7 +40,6 @@ browser.costPointSystemInput.send_keys('UNISYS')
 browser.costPointLoginBtn.click
 
 # Wait until you are inside of Deltek
-wait = Selenium::WebDriver::Wait.new(timeout: 30)
 wait.until {browser.costPointNavTC }
 
 # Navigate to the timesheet
@@ -82,14 +80,12 @@ sleep 2
 browser.costPointSave.click
 
 if DAY == 7
-	sleep 5
+	sleep 10
 	browser.costPointSign.click
 	sleep 5
 	browser.costPointConfirmSign
 end
 
-sleep 5
-
-wait = Selenium::WebDriver::Wait.new(timeout: 10) # seconds
+sleep 10
 
 browser.close_browser
