@@ -25,15 +25,16 @@ class SiteElement
   end
 
   def msUserName
-    @driver.find_element(:id, 'cred_userid_inputtext')
+    # @driver.find_element(:id, 'cred_userid_inputtext')
+    @driver.find_element(:id, 'i0116')
+  end
+
+  def msSubmit
+	@driver.find_element(:id, 'idSIButton9');
   end
 
   def msUserPass
     @driver.find_element(:id, 'passwordInput')
-  end
-
-  def msElementBlock
-    @driver.find_element(:id, 'login_cred_options_container')
   end
 
   def msSubmitLogin

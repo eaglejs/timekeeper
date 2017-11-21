@@ -19,7 +19,7 @@ wait.until {browser.msUserName}
 
 # click on submit button
 browser.msUserName.send_keys(data['username'])
-browser.msElementBlock.click
+browser.msSubmit.click
 
 wait.until {browser.msUserPass}
 
