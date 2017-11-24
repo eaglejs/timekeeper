@@ -25,7 +25,6 @@ class SiteElement
   end
 
   def msUserName
-    # @driver.find_element(:id, 'cred_userid_inputtext')
     @driver.find_element(:id, 'i0116')
   end
 

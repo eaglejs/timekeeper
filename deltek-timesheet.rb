@@ -2,7 +2,6 @@ require 'json'
 require_relative 'site-element.rb'
 
 file = File.read "./config.json"
-
 data = JSON.parse(file)
 
 ARGV.each do |a|
