@@ -29,7 +29,7 @@ class SiteElement
   end
 
   def msSubmit
-	@driver.find_element(:id, 'idSIButton9');
+    @driver.find_element(:id, 'idSIButton9')
   end
 
   def msUserPass
@@ -71,7 +71,7 @@ class SiteElement
   def costPointTimeSlot
     @driver.find_element(:id, format('DAY%s_HRS-_0_E', DAY))
   end
-  
+
   def costPointNewTimeSlot
     @driver.find_element(:id, format('DAY%s_HRS-_0_N', DAY))
   end
@@ -81,35 +81,35 @@ class SiteElement
   end
 
   def costPointNewBtn
-	@driver.find_elements(:class, 'rsltst')[1].find_element(:id, 'newBttn')
+    @driver.find_elements(:class, 'rsltst')[1].find_element(:id, 'newBttn')
   end
 
   def costPointNewLine
-	@driver.switch_to.active_element.send_keys(:f2)
+    @driver.switch_to.active_element.send_keys(:f2)
   end
 
   def costPointTimeCodeSlot
-	@driver.find_element(:id, 'UDT02_ID-_0_E')
+    @driver.find_element(:id, 'UDT02_ID-_0_E')
   end
-  
+
   def costPointNewTimeCodeSlot
-	@driver.find_element(:id, 'UDT02_ID-_0_N')
+    @driver.find_element(:id, 'UDT02_ID-_0_N')
   end
 
   def costPointPayType
-	@driver.find_element(:id, 'UDT10_ID-_0_E')
+    @driver.find_element(:id, 'UDT10_ID-_0_E')
   end
 
   def costPointNewPayType
-	@driver.find_element(:id, 'UDT10_ID-_0_N')
+    @driver.find_element(:id, 'UDT10_ID-_0_N')
   end
-  
+
   def costPointSign
     @driver.find_element(:id, 'SIGN_BUT')
   end
 
   def costPointConfirmSign
-	@driver.switch_to.alert.accept
+    @driver.switch_to.alert.accept
   end
 
   def close_browser
