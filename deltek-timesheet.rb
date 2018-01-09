@@ -13,8 +13,7 @@ end
 # define new browser
 browser = SiteElement.new(data['url'])
 
-wait = Selenium::WebDriver::Wait.new(timeout: 30)
-wait.until {browser.msUserName}
+wait = Selenium::WebDriver::Wait.new(timeout: 60)
 
 # click on submit button
 browser.msUserName.send_keys(data['username'])
