@@ -4,23 +4,26 @@ require 'io/console'
 TODAY = /([A-z])\w+/.match(Time.now.strftime('%a, %m'))[0]
 
 DAY = case TODAY
-      when 'Sat' then 1
-      when 'Sun' then 2
-      when 'Mon' then 3
-      when 'Tue' then 4
-      when 'Wed' then 5
-      when 'Thu' then 6
-      when 'Fri' then 7
+    when 'Sat' then 1
+    when 'Sun' then 2
+    when 'Mon' then 3
+    when 'Tue' then 4
+    when 'Wed' then 5
+    when 'Thu' then 6
+    when 'Fri' then 7
 end
 
 class SiteElement
   def initialize(url)
-    @driver = Selenium::WebDriver.for :chrome
+	
+	options = Selenium::WebDriver::Chrome::Options.new
+	@driver = Selenium::WebDriver.for :chrome, options: options
+	#@driver = Selenium::WebDriver.for :chrome
     # @driver.manage.window.maximize
     target_position = Selenium::WebDriver::Point.new(0, 0)
-    target_size = Selenium::WebDriver::Dimension.new(840, 1050)
+    #target_size = Selenium::WebDriver::Dimension.new(840, 1050)
     @driver.manage.window.position = target_position
-    @driver.manage.window.size = target_size
+    @driver.manage.window.resize_to(840, 1050)
     @driver.navigate.to url
   end
 
@@ -38,6 +41,10 @@ class SiteElement
 
   def msSubmitLogin
     @driver.find_element(:id, 'submitButton')
+  end 
+  
+  def msRememberMeYes
+	@driver.find_element(:id, 'idSIButton9')
   end
 
   def verificationLink

@@ -30,6 +30,9 @@ wait.until {browser.verificationLink}
 
 browser.verificationLink.click
 
+wait.until {browser.msRememberMeYes}
+browser.msRememberMeYes.click
+
 # Wait for costPoint login to show up
 wait.until {browser.costPointSystemInput}
 
