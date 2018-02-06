@@ -15,7 +15,7 @@ end
 
 class SiteElement
   def initialize(url)
-	
+	current_window = ''
 	options = Selenium::WebDriver::Chrome::Options.new
 	@driver = Selenium::WebDriver.for :chrome, options: options
 	#@driver = Selenium::WebDriver.for :chrome
@@ -23,8 +23,10 @@ class SiteElement
     target_position = Selenium::WebDriver::Point.new(0, 0)
     #target_size = Selenium::WebDriver::Dimension.new(840, 1050)
     @driver.manage.window.position = target_position
-    @driver.manage.window.resize_to(840, 1050)
-    @driver.navigate.to url
+	current_window = @driver.window_handle()
+	@driver.switch_to.window(current_window)
+	@driver.manage.window.maximize()
+	@driver.navigate.to url
   end
 
   def msUserName
