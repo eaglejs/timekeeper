@@ -4,9 +4,9 @@ require_relative 'site-element.rb'
 file = File.read "./config.json"
 data = JSON.parse(file)
 
-ARGV.each do |a|
-	if /time/.match(a.downcase)[0] == "time"
-		TIMEINPUT = /\d\.\d|\d/.match(a)
+ARGV.each do |argument|
+	if /time/.match(argument.downcase)[0] == "time"
+		TIMEINPUT = /\d\.\d|\d/.match(argument)
 	end
 end
 
