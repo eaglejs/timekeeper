@@ -14,9 +14,17 @@
 
 i.e., `ruby deltek-timesheet.rb time=8`
 
-This will start up the selenium webdriver and open up Unisys's deltek url and input your credentials, and do your timesheet. If you work at CBP, (this part is now being developed) it will eventually also log into that system and input the time as well.
+This will start up the selenium webdriver and open up Unisys's deltek url and input your credentials, and do your timesheet.
 
-## But eaglejs, you have to put in a two-step verification code!??
-Yes unfortunately, you do... That's why I said earlier that this is a one or two-step process, but all you have to do is reply to the text message and it will do the rest. Sorry, it's not 100% one-step, but it's the best I can do. I you have better ideas to get around this, I will love to hear them. :) 
-
-
+## This is now officially one step process.
+You do have to add the cookies listed in the cookies section of the config.example.json. To do this:
+  - Open up incognito mode in your chrome browser (do this so we are sure we are creating a new session).
+  - Navigate to the url in the config.example.json file.
+  - Fill out your username.
+  - Fill out your password.
+  - It will ask you to receive a text message, and do so, and reply to that text message.
+  - When you are prompted to save the session, open up your Dev Tools in the browser and go to the "application" tab.
+  - On the left of the Dev Tools, you'll see a dropdown for cookies, click on it, and click on the url inside.
+  - Now you will see several name, values, domains, etc. Just copy the values of the names that are in the config.example.json file and put them in there.
+  - Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
+  - Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.

@@ -11,27 +11,27 @@ ARGV.each do |argument|
 end
 
 # define new browser
-browser = SiteElement.new(data["url"])
+browser = SiteElement.new(data["url"], data["cookies"])
 
 wait = Selenium::WebDriver::Wait.new(timeout: 60)
 
 # click on submit button
-browser.msUserName.send_keys(data["username"])
-browser.msSubmit.click
+# browser.msUserName.send_keys(data["username"])
+# browser.msSubmit.click
 
-wait.until { browser.msUserPass }
+# wait.until { browser.msUserPass }
 
 # Login
-browser.msUserPass.send_keys(data["password"])
-browser.msSubmitLogin.click
+# browser.msUserPass.send_keys(data["password"])
+# browser.msSubmitLogin.click
 
 # Verify two-step login
-wait.until { browser.verificationLink }
+# wait.until { browser.verificationLink }
 
-browser.verificationLink.click
+# browser.verificationLink.click
 
-wait.until { browser.msRememberMeYes }
-browser.msRememberMeYes.click
+# wait.until { browser.msRememberMeYes }
+# browser.msRememberMeYes.click
 
 # Wait for costPoint login to show up
 wait.until { browser.costPointSystemInput }
@@ -80,11 +80,21 @@ sleep 2
 
 browser.costPointSave.click
 
+wait.until{browser.costSaveMessage}
+
+if browser.costSaveMessage.text.include? "successfully"
+  puts browser.costSaveMessage.text
+else
+  browser.costPointSave.click
+end
+
 if DAY == 7
   sleep 10
   browser.costPointSign.click
   sleep 5
   browser.costPointConfirmSign
+
+  wait.until{browser.costSaveMessage}
 end
 
 sleep 10

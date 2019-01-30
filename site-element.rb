@@ -14,7 +14,7 @@ DAY = case TODAY
       end
 
 class SiteElement
-  def initialize(url)
+  def initialize(url, cookies)
     current_window = ""
     options = Selenium::WebDriver::Chrome::Options.new
     @driver = Selenium::WebDriver.for :chrome, options: options
@@ -27,6 +27,10 @@ class SiteElement
     @driver.switch_to.window(current_window)
     # @driver.manage.window.maximize()
     @driver.navigate.to url
+    cookies.each{ |cookie|
+      @driver.manage.add_cookie(:name => cookie["name"], :value => cookie["value"], :secure => cookie["secure"] || false, :HTTP => cookie["HTTP"] || false, :domain => cookie["domain"])
+    }
+    @driver.navigate().refresh();
   end
 
   def msUserName
@@ -115,6 +119,10 @@ class SiteElement
 
   def costPointSign
     @driver.find_element(:id, "SIGN_BUT")
+  end
+
+  def costSaveMessage
+    @driver.find_element(:id, "mLink208_0")
   end
 
   def costPointConfirmSign
