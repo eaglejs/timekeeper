@@ -25,6 +25,6 @@ You do have to add the cookies listed in the cookies section of the config.examp
   - It will ask you to receive a text message, and do so, and reply to that text message.
   - When you are prompted to save the session, open up your Dev Tools in the browser and go to the "application" tab.
   - On the left of the Dev Tools, you'll see a dropdown for cookies, click on it, and click on the url inside.
-  - Now you will see several name, values, domains, etc. Just copy the values of the names that are in the config.example.json file and put them in there.
+  - Now you will see several name, values, domains, etc. Just copy the value from the name "ESTSAUTH" and paste it in the config.json file.
   - Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
   - Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.
