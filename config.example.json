@@ -11,41 +11,6 @@
       "domain": ".login.microsoftonline.com",
       "secure": true,
       "HTTP": true
-    },
-    {
-      "name": "ESTSAUTHLIGHT",
-      "value": "",
-      "domain": "login.microsoftonline.com",
-      "secure": true,
-      "HTTP": false
-    },
-    {
-      "name": "ESTSAUTHPERSISTENT",
-      "value": "",
-      "domain": ".login.microsoftonline.com",
-      "secure": true,
-      "HTTP": true
-    },
-    {
-      "name": "buid",
-      "value": "",
-      "domain": "login.microsoftonline.com",
-      "secure": true,
-      "HTTP": true
-    },
-    {
-      "name": "esctx",
-      "value": "",
-      "domain": ".login.microsoftonline.com",
-      "secure": true,
-      "HTTP": true
-    },
-    {
-      "name": "fpc",
-      "value": "",
-      "domain": "login.microsoftonline.com",
-      "secure": true,
-      "HTTP": true
     }
   ]
 }
