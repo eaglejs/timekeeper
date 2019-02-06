@@ -1,6 +1,6 @@
 # Timekeeper for Unisys Federal Employee's
 
-## Purpose is to create a one-step process that eliminates human error while adding time.
+## Purpose is to create a one-step process that eliminates human error while adding time. Thus, preventing punishment for being human. :)
 
 ## Requirements:
 	- Ruby
@@ -8,6 +8,9 @@
 
 ## Fill out your config.example.json file and rename it to config.json
 	- All fields are required in the json file.
+
+## install gems in this repository
+`bundle install`
 
 ## To Run the selenium webdriver:
 `ruby deltek-timesheet.rb time={{your time}}`
