@@ -33,4 +33,4 @@ You do have to add the cookies listed in the cookies section of the config.examp
   - Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
   - Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.
 
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Kitty!](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
