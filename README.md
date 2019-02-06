@@ -9,7 +9,7 @@
 ## Fill out your config.example.json file and rename it to config.json
 	- All fields are required in the json file.
 
-## install gems in this repository
+## Install gems in this repository
 `bundle install`
 
 ## To Run the selenium webdriver:
