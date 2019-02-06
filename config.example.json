@@ -6,6 +6,13 @@
   "username": "",
   "cookies": [
     {
+      "name": "CCState",
+      "value": "",
+      "domain": ".login.microsoftonline.com",
+      "secure": true,
+      "HTTP": true
+    },
+    {
       "name": "ESTSAUTH",
       "value": "",
       "domain": ".login.microsoftonline.com",

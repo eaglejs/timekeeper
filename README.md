@@ -23,8 +23,9 @@ You do have to add the cookies listed in the cookies section of the config.examp
   - Fill out your username.
   - Fill out your password.
   - It will ask you to receive a text message, and do so, and reply to that text message.
-  - When you are prompted to save the session, open up your Dev Tools in the browser and go to the "application" tab.
+  - When you are prompted to save the session, click yes, and let it take you to the deltek login page.
+  - Once you are there, hit back, to reveal office 365. open up your Dev Tools in the browser and go to the "application" tab.
   - On the left of the Dev Tools, you'll see a dropdown for cookies, click on it, and click on the url inside.
-  - Now you will see several name, values, domains, etc. Just copy the value from the name "ESTSAUTH" and paste it in the config.json file.
+  - Now you will see several name, values, domains, etc. Just copy the value from the name "ESTSAUTH", and "CCState" and paste it in the config.json file.
   - Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
   - Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.
