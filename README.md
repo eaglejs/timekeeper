@@ -3,16 +3,20 @@
 ## Purpose is to create a one-step process that eliminates human error while adding time. Thus, preventing punishment for being human. :)
 
 ## Requirements:
-	- Ruby
-	- Selenium Webdriver
+
+    - Ruby
+    - Selenium Webdriver
 
 ## Fill out your config.example.json file and rename it to config.json
-	- All fields are required in the json file.
+
+    - All fields are required in the json file.
 
 ## Install gems in this repository
+
 `bundle install`
 
 ## To Run the selenium webdriver:
+
 `ruby deltek-timesheet.rb time={{your time}}`
 
 i.e., `ruby deltek-timesheet.rb time=8`
@@ -20,19 +24,21 @@ i.e., `ruby deltek-timesheet.rb time=8`
 This will start up the selenium webdriver and open up Unisys's deltek url and input your credentials, and do your timesheet.
 
 ## This is now officially one step process.
+
 You do have to add the cookies listed in the cookies section of the config.example.json. To do this:
-  - Open up incognito mode in your chrome browser (do this so we are sure we are creating a new session).
-  - Navigate to the url in the config.example.json file.
-  - Fill out your username.
-  - Fill out your password.
-  - It will ask you to receive a text message, and do so, and reply to that text message.
-  - When you are prompted to save the session, click yes, and let it take you to the deltek login page.
-  - Once you are there, hit back, to reveal office 365. open up your Dev Tools in the browser and go to the "application" tab.
-  - On the left of the Dev Tools, you'll see a dropdown for cookies, click on it, and click on the url inside.
-  - Now you will see several name, values, domains, etc. Just copy the value from the name "ESTSAUTH", and "CCState" and paste it in the config.json file.
-  - Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
-  - Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.
+
+- Open up incognito mode in your chrome browser (do this so we are sure we are creating a new session).
+- Navigate to the url in the config.example.json file.
+- Fill out your username.
+- Fill out your password.
+- It will ask you to receive a text message, and do so, and reply to that text message.
+- When you are prompted to save the session, click yes, and let it take you to the deltek login page.
+- Once you are there, hit back, to reveal office 365. open up your Dev Tools in the browser and go to the "application" tab.
+- On the left of the Dev Tools, you'll see a dropdown for cookies, click on it, and click on the url inside.
+- Now you will see several name, values, domains, etc. Just copy the value from the name "ESTSAUTH", and "CCState" and paste it in the config.json file.
+- Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
+- Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.
 
 <p align="center">
-<img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" alt="Kitty!">
+  <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" alt="Kitty!">
 </p>
