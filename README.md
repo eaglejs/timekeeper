@@ -39,6 +39,31 @@ You do have to add the cookies listed in the cookies section of the config.examp
 - Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
 - Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.
 
+## Running in Crontab
+
+*** MAKE SURE YOU BACKUP YOUR CRON JOBS IF YOU HAVE ANY AS THIS BLOWS IT AWAY ***
+Make sure you run `rvm cron setup` < This will blow away your crontab >
+
+- type: `$ crontab -e`
+Here's an example crontab:
+```
+# Made by running `rvm cron setup`
+#sm start rvm
+PATH="/Users/jeagle/.rvm/gems/ruby-2.6.0/bin:/Users/jeagle/.rvm/gems/ruby-2.6.0@global/bin:/Users/jeagle/.rvm/rubies/ruby-2.6.0/bin:/Users/jeagle/.rvm/gems/ruby-2.6.0/bin:/Users/jeagle/.rvm/gems/ruby-2.6.0@global/bin:/Users/jeagle/.rvm/rubies/ruby-2.6.0/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:./node_modules/.bin:/usr/local/opt/go/libexec/bin:/usr/local/bin/tomcat-7:/Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/:/usr/local/sbin:/Users/jeagle/.rvm/bin"
+GEM_HOME='/Users/jeagle/.rvm/gems/ruby-2.6.0'
+GEM_PATH='/Users/jeagle/.rvm/gems/ruby-2.6.0:/Users/jeagle/.rvm/gems/ruby-2.6.0@global'
+MY_RUBY_HOME='/Users/jeagle/.rvm/rubies/ruby-2.6.0'
+IRBRC='/Users/jeagle/.rvm/rubies/ruby-2.6.0/.irbrc'
+RUBY_VERSION='ruby-2.6.0'
+#sm end rvm
+
+30 8 * * 5 cd /Users/jeagle/ && sh do-timesheet.sh >> /Users/jeagle/cron.log 2>&1
+00 16 * * 1-4 cd /Users/jeagle/ && sh do-timesheet.sh >> /Users/jeagle/cron.log 2>&1
+#*/1 * * * * cd /Users/jeagle/ && sh do-timesheet.sh  >> /Users/jeagle/cron.log 2>&1
+```
+
+I created a shell script that runs the timesheet and included it in the repository, just put it in your home folder and this setup should work.
+
 <p align="center">
   <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" alt="Kitty!">
 </p>
