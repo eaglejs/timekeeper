@@ -53,3 +53,7 @@ class Cookies {
     return NEW_COOKIES;
   }
 }
+
+let cookies = new Cookies();
+
+copy(cookies.getCookies());

@@ -19,10 +19,10 @@ You do have to add the cookies listed in the cookies section of the config.examp
 - Open up your browser and log into the deltek time keeping application.
 - Once you authenticated, navigate to: `chrome://settings/cookies` in your web browser.
 - Search for `login.microsoft.com`
-- You should have 13 results here. Open up your console and copy all of the code in get-cookies.js and paste it into your console.
-- It should spit out data for you to copy and paste into your config.json file.
+- You should have 13ish results here. Open up your console and copy all of the code in get-cookies.js and paste it into your console.
+- It should output the data in your clipboard, so all you have to do is paste it in the config.json file.
 - Open up config.example.json file, or your config.json file if you already have one.
-- copy and paste the data that was spit out in the cookie property section.
+- Paste the data that was spit out in the cookie property value.
 - Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
 - Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.
 
