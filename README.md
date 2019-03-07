@@ -3,17 +3,28 @@
 ## Purpose is to create a one-step process that eliminates human error while adding time. Thus, preventing punishment for being human. :)
 
 ## Requirements:
-
     - Ruby
     - Selenium Webdriver
-
-## Fill out your config.example.json file and rename it to config.json
-
-    - All fields are required in the json file.
 
 ## Install gems in this repository
 
 `bundle install`
+
+## Fill out your config.example.json file and rename it to config.json
+  - All fields are required in the json file.
+
+## This is now officially one step process.
+
+You do have to add the cookies listed in the cookies section of the config.example.json. To do this:
+- Open up your browser and log into the deltek time keeping application.
+- Once you authenticated, navigate to: `chrome://settings/cookies` in your web browser.
+- Search for `login.microsoft.com`
+- You should have 13 results here. Open up your console and copy all of the code in get-cookies.js and paste it into your console.
+- It should spit out data for you to copy and paste into your config.json file.
+- Open up config.example.json file, or your config.json file if you already have one.
+- copy and paste the data that was spit out in the cookie property section.
+- Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
+- Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.
 
 ## To Run the selenium webdriver:
 
@@ -22,22 +33,6 @@
 i.e., `ruby deltek-timesheet.rb time=8`
 
 This will start up the selenium webdriver and open up Unisys's deltek url and input your credentials, and do your timesheet.
-
-## This is now officially one step process.
-
-You do have to add the cookies listed in the cookies section of the config.example.json. To do this:
-
-- Open up incognito mode in your chrome browser (do this so we are sure we are creating a new session).
-- Navigate to the url in the config.example.json file.
-- Fill out your username.
-- Fill out your password.
-- It will ask you to receive a text message, and do so, and reply to that text message.
-- When you are prompted to save the session, click yes, and let it take you to the deltek login page.
-- Once you are there, hit back, to reveal office 365. open up your Dev Tools in the browser and go to the "application" tab.
-- On the left of the Dev Tools, you'll see a dropdown for cookies, click on it, and click on the url inside.
-- Now you will see several name, values, domains, etc. Just copy the value from the name "ESTSAUTH", and "CCState" and paste it in the config.json file.
-- Keep this file secret because if someone get's these cookie values, they can hi-jack your session, and do unspeakable things to you.
-- Once it is saved, and you renamed your config.example.json to config.json, you should be good to go, and it will automatically log in. If your cookies expire, just repeat the process.
 
 ## Running in Crontab
 
