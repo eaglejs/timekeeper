@@ -18,8 +18,8 @@
 You do have to add the cookies listed in the cookies section of the config.example.json. To do this:
 - Open up your browser and log into the deltek time keeping application.
 - Once you authenticated, navigate to: `chrome://settings/siteData` in your web browser.
-- Search for `login.microsoft.com`
-- You should have 13ish results here. Open up your console and copy all of the code in get-cookies.js and paste it into your console.
+- Search for `login.microsoft.com`, and click on the one result that you found.
+- You should have 12ish cookies here on the next page. Open up your console and copy all of the code in get-cookies.js and paste it into your console.
 - It should output the data in your clipboard, so all you have to do is paste it in the config.json file.
 - Open up config.example.json file, or your config.json file if you already have one.
 - Paste the data that was spit out in the cookie property value.
