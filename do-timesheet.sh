@@ -7,4 +7,4 @@ echo $PATH
 
 ruby -v
 
-cd /Users/jeagle/repos/timekeeper/ && bundle install && ruby deltek-timesheet.rb time=8
+cd /Users/jeagle/repos/timekeeper/ && ruby deltek-timesheet.rb time=8
