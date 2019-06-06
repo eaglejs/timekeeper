@@ -37,8 +37,10 @@ wait = Selenium::WebDriver::Wait.new(timeout: 60)
 wait.until { browser.costPointSystemInput }
 
 # Fill out Creds for Cost Point
+sleep 3
 browser.costPointSystemInput.send_keys("UNISYS")
 browser.costPointLoginBtn.click
+
 
 # Wait until you are inside of Deltek
 wait.until { browser.costPointNavTC }
