@@ -1,85 +1,132 @@
 require "selenium-webdriver"
 require "io/console"
 
+TODAY = /([A-z])\w+/.match(Time.now.strftime("%a, %m"))[0]
+
+DAY = case TODAY
+      when "Sat" then 1
+      when "Sun" then 2
+      when "Mon" then 3
+      when "Tue" then 4
+      when "Wed" then 5
+      when "Thu" then 6
+      when "Fri" then 7
+      end
+
 class SiteElement
-  def initialize(url)
+  def initialize(url, cookies)
     current_window = ""
     options = Selenium::WebDriver::Chrome::Options.new
     @driver = Selenium::WebDriver.for :chrome, options: options
+    #@driver = Selenium::WebDriver.for :chrome
+    # @driver.manage.window.maximize
     target_position = Selenium::WebDriver::Point.new(0, 0)
+    #target_size = Selenium::WebDriver::Dimension.new(840, 1050)
     @driver.manage.window.position = target_position
     current_window = @driver.window_handle()
     @driver.switch_to.window(current_window)
+    # @driver.manage.window.maximize()
     @driver.navigate.to url
-    # @driver.navigate().refresh();
+    cookies.each{ |cookie|
+      @driver.manage.add_cookie(:name => cookie["name"], :value => cookie["value"], :secure => cookie["secure"] || false, :HTTP => cookie["HTTP"] || false, :domain => cookie["domain"])
+    }
+    @driver.navigate().refresh();
   end
 
-  def emailInput
-    @driver.find_element(:id, "xReturningUserEmail")
+  def msUserName
+    @driver.find_element(:id, "i0116")
   end
 
-  def submitEmailBtn
-    @driver.find_element(:id, "xCheckUser")
+  def msSubmit
+    @driver.find_element(:id, "idSIButton9")
   end
 
-  def entryForm
-    @driver.find_element(:id, "xSecondaryForm")
+  def msUserPass
+    @driver.find_element(:id, "passwordInput")
   end
 
-  def firstName
-    @driver.find_element(:id, "name_Firstname");
+  def msSubmitLogin
+    @driver.find_element(:id, "submitButton")
   end
 
-  def lastName
-    @driver.find_element(:id, "name_Lastname");
+  def msRememberMeYes
+    @driver.find_element(:id, "idSIButton9")
   end
 
-  def email
-    @driver.find_element(:id, "email");
+  def verificationLink
+    @driver.find_element(:id, "verificationOption3")
   end
 
-  def address
-    @driver.find_element(:id, "address_Address1");
+  def costPointSystemInput
+    @driver.find_element(:id, "DATABASE")
   end
 
-  def city
-    @driver.find_element(:id, "address_City");
+  def costPointLoginBtn
+    @driver.find_element(:id, "loginBtn")
   end
 
-  def state
-    @driver.find_element(:id, "xFieldWrap_address_State").find_element(:class, 'option[data-value="VA"]');
+  def costPointNavTC
+    @driver.find_element(:id, "navTC")
   end
 
-  def zip
-    @driver.find_element(:id, "address_Zip");
+  def costPointTimeBtn
+    @driver.find_element(:id, "dpt__TM")
   end
 
-  def phone
-    @driver.find_element(:id, "phone");
+  def costPointTimeSheetsBtn
+    @driver.find_element(:id, "wrk__Timesheets")
   end
 
-  def sex
-    @driver.find_element(:id, "gender_1");
+  def costPointManageTimesheets
+    @driver.find_element(:id, "actvty__TMMTIMESHEET")
   end
 
-  def dobMonth
-    @driver.find_element(:id, "xCompositeItem-Month").find_element(:class, 'option[data-value="03"]');
+  def costPointTimeSlot
+    @driver.find_element(:id, format("DAY%s_HRS-_0_E", DAY))
   end
 
-  def dobDay
-    @driver.find_element(:id, "date_of_birth_day");
+  def costPointNewTimeSlot
+    @driver.find_element(:id, format("DAY%s_HRS-_0_N", DAY))
   end
 
-  def dobYear
-    @driver.find_element(:id, "date_of_birth_year");
+  def costPointSave
+    @driver.find_element(:id, "svBttn")
   end
 
-  def isProvider
-    @driver.find_element(:id, "mvpdWrapper").find_element(:class, 'option[data-value="Verizon_FIOS"]');
+  def costPointNewBtn
+    @driver.find_elements(:class, "rsltst")[1].find_element(:id, "newBttn")
   end
 
-  def submitEntryBtn
-    @driver.find_element(:id, "xSecondaryForm").find_element(:class, "xSubmit")
+  def costPointNewLine
+    @driver.switch_to.active_element.send_keys(:f2)
+  end
+
+  def costPointTimeCodeSlot
+    @driver.find_element(:id, "UDT02_ID-_0_E")
+  end
+
+  def costPointNewTimeCodeSlot
+    @driver.find_element(:id, "UDT02_ID-_0_N")
+  end
+
+  def costPointPayType
+    @driver.find_element(:id, "UDT10_ID-_0_E")
+  end
+
+  def costPointNewPayType
+    @driver.find_element(:id, "UDT10_ID-_0_N")
+  end
+
+  def costPointSign
+    @driver.find_element(:id, "SIGN_BUT")
+  end
+
+  def costSaveMessage
+    @driver.find_element(:id, "mLink208_0")
+  end
+
+  def costPointConfirmSign
+    @driver.switch_to.alert.accept
   end
 
   def close_browser

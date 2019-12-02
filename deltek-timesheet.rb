@@ -34,6 +34,7 @@ wait = Selenium::WebDriver::Wait.new(timeout: 60)
 # browser.msRememberMeYes.click
 
 # Wait for costPoint login to show up
+sleep 10
 wait.until { browser.costPointSystemInput }
 
 # Fill out Creds for Cost Point
