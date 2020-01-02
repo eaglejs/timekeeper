@@ -15,26 +15,8 @@ browser = SiteElement.new(data["url"], data["cookies"])
 
 wait = Selenium::WebDriver::Wait.new(timeout: 60)
 
-# click on submit button
-# browser.msUserName.send_keys(data["username"])
-# browser.msSubmit.click
-
-# wait.until { browser.msUserPass }
-
-# Login
-# browser.msUserPass.send_keys(data["password"])
-# browser.msSubmitLogin.click
-
-# Verify two-step login
-# wait.until { browser.verificationLink }
-
-# browser.verificationLink.click
-
-# wait.until { browser.msRememberMeYes }
-# browser.msRememberMeYes.click
-
+sleep 5
 # Wait for costPoint login to show up
-sleep 10
 wait.until { browser.costPointSystemInput }
 
 # Fill out Creds for Cost Point

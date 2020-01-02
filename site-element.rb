@@ -18,15 +18,12 @@ class SiteElement
     current_window = ""
     options = Selenium::WebDriver::Chrome::Options.new
     @driver = Selenium::WebDriver.for :chrome, options: options
-    #@driver = Selenium::WebDriver.for :chrome
-    # @driver.manage.window.maximize
     target_position = Selenium::WebDriver::Point.new(0, 0)
-    #target_size = Selenium::WebDriver::Dimension.new(840, 1050)
     @driver.manage.window.position = target_position
     current_window = @driver.window_handle()
     @driver.switch_to.window(current_window)
-    # @driver.manage.window.maximize()
     @driver.navigate.to url
+
     cookies.each{ |cookie|
       @driver.manage.add_cookie(:name => cookie["name"], :value => cookie["value"], :secure => cookie["secure"] || false, :HTTP => cookie["HTTP"] || false, :domain => cookie["domain"])
     }
