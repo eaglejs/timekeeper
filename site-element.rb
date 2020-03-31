@@ -3,15 +3,6 @@ require "io/console"
 
 TODAY = /([A-z])\w+/.match(Time.now.strftime("%a, %m"))[0]
 
-DAY = case TODAY
-      when "Sat" then 1
-      when "Sun" then 2
-      when "Mon" then 3
-      when "Tue" then 4
-      when "Wed" then 5
-      when "Thu" then 6
-      when "Fri" then 7
-      end
 
 class SiteElement
   def initialize(url, cookies)
@@ -30,64 +21,50 @@ class SiteElement
     @driver.navigate().refresh();
   end
 
-  def msUserName
-    @driver.find_element(:id, "i0116")
+  # ********** START Deltek Login Page elements **********
+  def deltekLoginUsername
+    @driver.find_element(:id, "uid")
   end
+  def deltekLoginPassword
+    @driver.find_element(:id, "passField")
+  end
+  def deltekLoginDomain
+    @driver.find_element(:id, "dom")
+  end
+  def deltekLoginButton
+    @driver.find_element(:id, "loginButton")
+  end
+  # ********** END Deltek Login Page elements **********
 
-  def msSubmit
-    @driver.find_element(:id, "idSIButton9")
+  # ********** START Deltek Desktop Page elements **********
+  def switchToIframe
+    @driver.switch_to.frame "unitFrame"
   end
+  def deltekDesktopOpenTimesheet
+    @driver.find_elements(:class, "desktopNormalAlertBackgroud")[1]
+      .find_element(:tag_name, "span")
+  end
+  # ********** END Deltek Desktop Page elements **********
 
-  def msUserPass
-    @driver.find_element(:id, "passwordInput")
+  # ********** START Deltek Timesheet Page elements **********
+  def hasTimesheetHeader
+    @driver.find_element(:id , "appTitle")
   end
-
-  def msSubmitLogin
-    @driver.find_element(:id, "submitButton")
+  def hoursHeader
+    puts(TODAY)
+    @driver.find_element(:id, "hrsHeaderText4")
   end
-
-  def msRememberMeYes
-    @driver.find_element(:id, "idSIButton9")
+  def projectNameCell
+    @driver.find_element(:id, "udt0_2")
   end
-
-  def verificationLink
-    @driver.find_element(:id, "verificationOption3")
-  end
+  # ********** END Deltek Timesheet Page elements **********
 
   def costPointSystemInput
     @driver.find_element(:id, "DATABASE")
   end
 
-  def costPointLoginBtn
-    @driver.find_element(:id, "loginBtn")
-  end
-
-  def costPointNavTC
-    @driver.find_element(:id, "navTC")
-  end
-
-  def costPointTimeBtn
-    @driver.find_element(:id, "dpt__TM")
-  end
-
-  def costPointTimeSheetsBtn
-    @driver.find_element(:id, "wrk__Timesheets")
-  end
-
-  def costPointManageTimesheets
-    @driver.find_element(:id, "actvty__TMMTIMESHEET")
-  end
-
   def costPointTimeSlot
     @driver.find_element(:id, format("DAY%s_HRS-_0_E", DAY))
-  end
-
-  def costPointNewTimeSlot
-    @driver.find_element(:id, format("DAY%s_HRS-_0_N", DAY))
-  end
-
-  def costPointSave
-    @driver.find_element(:id, "svBttn")
   end
 
   def costPointNewBtn
@@ -96,30 +73,6 @@ class SiteElement
 
   def costPointNewLine
     @driver.switch_to.active_element.send_keys(:f2)
-  end
-
-  def costPointTimeCodeSlot
-    @driver.find_element(:id, "UDT02_ID-_0_E")
-  end
-
-  def costPointNewTimeCodeSlot
-    @driver.find_element(:id, "UDT02_ID-_0_N")
-  end
-
-  def costPointPayType
-    @driver.find_element(:id, "UDT10_ID-_0_E")
-  end
-
-  def costPointNewPayType
-    @driver.find_element(:id, "UDT10_ID-_0_N")
-  end
-
-  def costPointSign
-    @driver.find_element(:id, "SIGN_BUT")
-  end
-
-  def costSaveMessage
-    @driver.find_element(:id, "mLink208_0")
   end
 
   def costPointConfirmSign

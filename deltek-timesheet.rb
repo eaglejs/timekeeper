@@ -15,73 +15,26 @@ browser = SiteElement.new(data["url"], data["cookies"])
 
 wait = Selenium::WebDriver::Wait.new(timeout: 60)
 
-sleep 5
 # Wait for costPoint login to show up
-wait.until { browser.costPointSystemInput }
+wait.until { browser.deltekLoginUsername}
 
 # Fill out Creds for Cost Point
-sleep 3
-browser.costPointSystemInput.send_keys("UNISYS")
-browser.costPointLoginBtn.click
+browser.deltekLoginUsername.send_keys(data["username"])
+browser.deltekLoginPassword.send_keys(data["password"])
+browser.deltekLoginDomain.send_keys(data["domain"])
+browser.deltekLoginButton.click
 
+# Manage Timesheet Desktop page.
+browser.switchToIframe
+puts(browser.deltekDesktopOpenTimesheet.text)
+browser.deltekDesktopOpenTimesheet
+puts("clicking open timesheet")
+browser.deltekDesktopOpenTimesheet.click
 
-# Wait until you are inside of Deltek
-wait.until { browser.costPointNavTC }
-
-# Navigate to the timesheet
-browser.costPointNavTC.click
-browser.costPointTimeBtn.click
-browser.costPointTimeSheetsBtn.click
-browser.costPointManageTimesheets.click
-
-# If it is Monday, put in timecode
-if DAY == 3
-  sleep 5
-  browser.costPointNewBtn.click
-  wait.until { browser.costPointNewTimeCodeSlot }
-  browser.costPointNewTimeCodeSlot.click
-  sleep 3
-  browser.costPointNewTimeCodeSlot.clear()
-  browser.costPointNewTimeCodeSlot.send_keys(data["timecode"])
-  sleep 3
-  browser.costPointNewPayType.send_keys(data["payType"])
-  sleep 3
-  browser.costPointNewTimeSlot.click
-  sleep 5
-  browser.costPointNewTimeSlot.clear()
-  browser.costPointNewTimeSlot.send_keys(TIMEINPUT)
-else
-  # Wait until timeslot is visible
-  wait.until { browser.costPointTimeSlot }
-  # set focus to time slot based on date
-  browser.costPointTimeSlot.click
-  sleep 3
-  # Input time, then save
-  browser.costPointTimeSlot.clear()
-  browser.costPointTimeSlot.send_keys(TIMEINPUT)
-end
-
-sleep 2
-
-browser.costPointSave.click
-
-wait.until{browser.costSaveMessage}
-
-if browser.costSaveMessage.text.include? "successfully"
-  puts browser.costSaveMessage.text
-else
-  browser.costPointSave.click
-end
-
-if DAY == 7
-  sleep 10
-  browser.costPointSign.click
-  sleep 5
-  browser.costPointConfirmSign
-
-  wait.until{browser.costSaveMessage}
-end
-
-sleep 10
+# fill out timesheet.
+wait.until {browser.hasTimesheetHeader}
+puts(browser.hasTimesheetHeader.text)
+puts(browser.hoursHeader.text)
+puts(browser.projectNameCell.text)
 
 browser.close_browser
