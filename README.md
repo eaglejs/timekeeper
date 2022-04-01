@@ -1,4 +1,4 @@
-# Timekeeper for Unisys Federal Employee's
+# Timekeeper for Deltek Timesheets
 
 ## Purpose is to create a one-step process that eliminates human error while adding time. Thus, preventing punishment for being human. :)
 
@@ -58,6 +58,8 @@ RUBY_VERSION='ruby-2.6.0'
 ```
 
 I created a shell script that runs the timesheet and included it in the repository, just put it in your home folder and this setup should work.
+
+*** In the future, i'm going to convert this cron job to systemd, it's easier and cleaner to maintain ***
 
 <p align="center">
   <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" alt="Kitty!">
