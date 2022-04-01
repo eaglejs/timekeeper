@@ -1,10 +1,4 @@
-#!/bin/bash
+#!/bin/sh
+source $HOME/.profile
 
-source /Users/jeagle/.zshrc
-source /Users/jeagle/.profile
-
-echo $PATH
-
-ruby -v
-
-cd /Users/jeagle/repos/timekeeper/ && ruby deltek-timesheet.rb time=8
+cd $HOME/repos/timekeeper/ && /usr/bin/ruby deltek-timesheet.rb time=8

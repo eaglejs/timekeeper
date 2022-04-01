@@ -15,13 +15,13 @@ browser = SiteElement.new(data["url"], data["cookies"])
 
 wait = Selenium::WebDriver::Wait.new(timeout: 60)
 
-sleep 5
 # Wait for costPoint login to show up
 wait.until { browser.costPointSystemInput }
 
 # Fill out Creds for Cost Point
-sleep 3
-browser.costPointSystemInput.send_keys("UNISYS")
+browser.costPointSystemUsername.send_keys(data["username"])
+browser.costPointSystemPassword.send_keys(data["password"])
+browser.costPointSystemInput.send_keys(data["system"])
 browser.costPointLoginBtn.click
 
 
@@ -34,37 +34,24 @@ browser.costPointTimeBtn.click
 browser.costPointTimeSheetsBtn.click
 browser.costPointManageTimesheets.click
 
-# If it is Monday, put in timecode
-if DAY == 3
-  sleep 5
-  browser.costPointNewBtn.click
-  wait.until { browser.costPointNewTimeCodeSlot }
-  browser.costPointNewTimeCodeSlot.click
-  sleep 3
-  browser.costPointNewTimeCodeSlot.clear()
-  browser.costPointNewTimeCodeSlot.send_keys(data["timecode"])
-  sleep 3
-  browser.costPointNewPayType.send_keys(data["payType"])
-  sleep 3
-  browser.costPointNewTimeSlot.click
-  sleep 5
-  browser.costPointNewTimeSlot.clear()
-  browser.costPointNewTimeSlot.send_keys(TIMEINPUT)
-else
-  # Wait until timeslot is visible
-  wait.until { browser.costPointTimeSlot }
-  # set focus to time slot based on date
-  browser.costPointTimeSlot.click
-  sleep 3
-  # Input time, then save
-  browser.costPointTimeSlot.clear()
-  browser.costPointTimeSlot.send_keys(TIMEINPUT)
+sleep 2
+# Wait until timeslot is visible
+for a in 1..10 do
+  browser.costPointScrollBar.click
 end
+wait.until { browser.costPointTimeSlot }
+
+# set focus to time slot based on date
+browser.costPointTimeSlot.click
+sleep 3
+
+# Input time, then save
+browser.costPointTimeSlot.clear()
+browser.costPointTimeSlot.send_keys(TIMEINPUT)
 
 sleep 2
 
 browser.costPointSave.click
-
 wait.until{browser.costSaveMessage}
 
 if browser.costSaveMessage.text.include? "successfully"
@@ -73,15 +60,16 @@ else
   browser.costPointSave.click
 end
 
-if DAY == 7
-  sleep 10
+if isLastDayOfTimePeriod()
+  sleep 5
   browser.costPointSign.click
   sleep 5
   browser.costPointConfirmSign
-
   wait.until{browser.costSaveMessage}
 end
 
-sleep 10
+sleep 5
+
+puts('Time entered for ' + MONTH + '/' + DAY + '/' + YEAR + ' with time equal to ' + TIMEINPUT.to_s + 'hrs')
 
 browser.close_browser

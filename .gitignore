@@ -1,4 +1,6 @@
+.bundle
 .sonarlint
 .rubocop.yml
 .vscode
+vendor
 config.json

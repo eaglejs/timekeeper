@@ -1,8 +1,8 @@
 {
+	"username": "",
 	"password": "",
 	"payType": "",
 	"timecode": "",
 	"url": "",
-  "username": "",
-  "cookies": []
+	"cookies": []
 }

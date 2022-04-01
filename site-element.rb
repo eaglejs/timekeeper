@@ -1,23 +1,25 @@
 require "selenium-webdriver"
 require "io/console"
+require "date"
 
-TODAY = /([A-z])\w+/.match(Time.now.strftime("%a, %m"))[0]
-
-DAY = case TODAY
-      when "Sat" then 1
-      when "Sun" then 2
-      when "Mon" then 3
-      when "Tue" then 4
-      when "Wed" then 5
-      when "Thu" then 6
-      when "Fri" then 7
-      end
+MONTH = Time.now.strftime("%m")
+DAY = Time.now.strftime("%d")
+YEAR = Time.now.strftime("%y")
+DAY_OF_WEEK = Time.now.strftime("%a")
+DAY_15_OF_MONTH = Time.new(YEAR.to_i, MONTH.to_i, 15).strftime("%a")
+DAY_16_OF_MONTH = Time.new(YEAR.to_i, MONTH.to_i, 16).strftime("%a")
+LAST_DAY_OF_MONTH_NUM = Date.new(YEAR.to_i, MONTH.to_i, -1).day
+LAST_DAY_OF_MONTH = Time.new(YEAR.to_i, MONTH.to_i, LAST_DAY_OF_MONTH_NUM.to_i).strftime("%a")
+DIFFERENCE_IN_DAYS_BETWEEN_TODAY_AND_16 = DAY.to_i - 15
 
 class SiteElement
   def initialize(url, cookies)
     current_window = ""
-    options = Selenium::WebDriver::Chrome::Options.new
-    @driver = Selenium::WebDriver.for :chrome, options: options
+    caps = [
+      selenium_options,
+      selenium_capabilities_chrome,
+    ]
+    @driver = Selenium::WebDriver.for(:chrome, capabilities: caps)
     target_position = Selenium::WebDriver::Point.new(0, 0)
     @driver.manage.window.position = target_position
     current_window = @driver.window_handle()
@@ -30,28 +32,42 @@ class SiteElement
     @driver.navigate().refresh();
   end
 
-  def msUserName
-    @driver.find_element(:id, "i0116")
+  def selenium_options
+    options = Selenium::WebDriver::Chrome::Options.new
+    #options.add_argument('--headless')
+    options
+  end
+  
+  # optional
+  def selenium_capabilities_chrome
+    Selenium::WebDriver::Remote::Capabilities.chrome
   end
 
-  def msSubmit
-    @driver.find_element(:id, "idSIButton9")
+  def isFirstHalfOfMonth
+    DAY.to_i < 16
+  end
+  
+  def isLastDayOfTimePeriod
+    if (DAY.to_i == 15 || DAY.to_i == LAST_DAY_OF_MONTH_NUM.to_i)
+      return true
+    elsif isFirstHalfOfMonth && DAY_OF_WEEK == 'Fri' && (DAY_15_OF_MONTH == 'Sat' || DAY_15_OF_MONTH == 'Sun')
+      return (15 - DAY.to_i) <= 2
+    elsif DAY_OF_WEEK == 'Fri' && (LAST_DAY_OF_MONTH == 'Sat' || LAST_DAY_OF_MONTH == 'Sun')
+      return (LAST_DAY_OF_MONTH_NUM.to_i - DAY.to_i) <= 2
+    end
+    return false
   end
 
-  def msUserPass
-    @driver.find_element(:id, "passwordInput")
+  def isLastDayOfTimePeriodOnWeekend
+    
   end
 
-  def msSubmitLogin
-    @driver.find_element(:id, "submitButton")
+  def costPointSystemUsername
+    @driver.find_element(:id, "USER")
   end
 
-  def msRememberMeYes
-    @driver.find_element(:id, "idSIButton9")
-  end
-
-  def verificationLink
-    @driver.find_element(:id, "verificationOption3")
+  def costPointSystemPassword
+    @driver.find_element(:id, "CLIENT_PASSWORD")
   end
 
   def costPointSystemInput
@@ -79,11 +95,15 @@ class SiteElement
   end
 
   def costPointTimeSlot
-    @driver.find_element(:id, format("DAY%s_HRS-_0_E", DAY))
+    if DAY.to_i > 15
+      @driver.find_element(:id, format("DAY%s_HRS-_0_E", DIFFERENCE_IN_DAYS_BETWEEN_TODAY_AND_16))
+    else
+      @driver.find_element(:id, format("DAY%s_HRS-_0_E", DAY_to_i))
+    end
   end
 
   def costPointNewTimeSlot
-    @driver.find_element(:id, format("DAY%s_HRS-_0_N", DAY))
+    @driver.find_element(:id, format("DAY%s_HRS-_0_N", DAY.to_i))
   end
 
   def costPointSave
@@ -92,6 +112,10 @@ class SiteElement
 
   def costPointNewBtn
     @driver.find_elements(:class, "rsltst")[1].find_element(:id, "newBttn")
+  end
+
+  def costPointScrollBar
+    @driver.find_elements(:class, 'hScrCnt')[3].find_element(:id, "hp2")
   end
 
   def costPointNewLine
