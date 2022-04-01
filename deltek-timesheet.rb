@@ -58,7 +58,7 @@ else
   browser.costPointSave.click
 end
 
-if isLastDayOfTimePeriod()
+if browser.isLastDayOfTimePeriod()
   sleep 5
   browser.costPointSign.click
   sleep 5
