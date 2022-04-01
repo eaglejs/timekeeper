@@ -24,7 +24,6 @@ browser.costPointSystemPassword.send_keys(data["password"])
 browser.costPointSystemInput.send_keys(data["system"])
 browser.costPointLoginBtn.click
 
-
 # Wait until you are inside of Deltek
 wait.until { browser.costPointNavTC }
 
@@ -35,17 +34,16 @@ browser.costPointTimeSheetsBtn.click
 browser.costPointManageTimesheets.click
 
 sleep 2
-# Wait until timeslot is visible
-for a in 1..10 do
-  browser.costPointScrollBar.click
-end
-wait.until { browser.costPointTimeSlot }
 
-# set focus to time slot based on date
+if DAY.to_i > 24 || DAY.to_i > 9
+  for a in 1..10 do
+    browser.costPointScrollBar.click
+  end
+end
+
+wait.until { browser.costPointTimeSlot }
 browser.costPointTimeSlot.click
 sleep 3
-
-# Input time, then save
 browser.costPointTimeSlot.clear()
 browser.costPointTimeSlot.send_keys(TIMEINPUT)
 
@@ -70,6 +68,6 @@ end
 
 sleep 5
 
-puts('Time entered for ' + MONTH + '/' + DAY + '/' + YEAR + ' with time equal to ' + TIMEINPUT.to_s + 'hrs')
+puts('Time entered for ' + MONTH.to_s + '/' + DAY.to_s + '/' + YEAR.to_s + ' with time equal to ' + TIMEINPUT.to_s + 'hrs')
 
 browser.close_browser

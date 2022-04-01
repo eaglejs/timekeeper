@@ -2,15 +2,15 @@ require "selenium-webdriver"
 require "io/console"
 require "date"
 
-MONTH = Time.now.strftime("%m")
-DAY = Time.now.strftime("%d")
-YEAR = Time.now.strftime("%y")
+MONTH = Time.now.month
+DAY = Time.now.day
+YEAR = Time.now.year
 DAY_OF_WEEK = Time.now.strftime("%a")
-DAY_15_OF_MONTH = Time.new(YEAR.to_i, MONTH.to_i, 15).strftime("%a")
-DAY_16_OF_MONTH = Time.new(YEAR.to_i, MONTH.to_i, 16).strftime("%a")
-LAST_DAY_OF_MONTH_NUM = Date.new(YEAR.to_i, MONTH.to_i, -1).day
-LAST_DAY_OF_MONTH = Time.new(YEAR.to_i, MONTH.to_i, LAST_DAY_OF_MONTH_NUM.to_i).strftime("%a")
-DIFFERENCE_IN_DAYS_BETWEEN_TODAY_AND_16 = DAY.to_i - 15
+DAY_15_OF_MONTH = Time.new(YEAR, MONTH, 15).strftime("%a")
+DAY_16_OF_MONTH = Time.new(YEAR, MONTH, 16).strftime("%a")
+LAST_DAY_OF_MONTH_NUM = Date.new(YEAR, MONTH, -1).day.to_i
+LAST_DAY_OF_MONTH = Time.new(YEAR, MONTH, LAST_DAY_OF_MONTH_NUM).strftime("%a")
+DIFFERENCE_IN_DAYS_BETWEEN_TODAY_AND_16 = DAY - 15
 
 class SiteElement
   def initialize(url, cookies)
@@ -34,7 +34,7 @@ class SiteElement
 
   def selenium_options
     options = Selenium::WebDriver::Chrome::Options.new
-    #options.add_argument('--headless')
+    options.add_argument('--headless')
     options
   end
   
@@ -44,22 +44,18 @@ class SiteElement
   end
 
   def isFirstHalfOfMonth
-    DAY.to_i < 16
+    DAY < 16
   end
   
   def isLastDayOfTimePeriod
-    if (DAY.to_i == 15 || DAY.to_i == LAST_DAY_OF_MONTH_NUM.to_i)
+    if (DAY == 15 || DAY == LAST_DAY_OF_MONTH_NUM)
       return true
     elsif isFirstHalfOfMonth && DAY_OF_WEEK == 'Fri' && (DAY_15_OF_MONTH == 'Sat' || DAY_15_OF_MONTH == 'Sun')
-      return (15 - DAY.to_i) <= 2
+      return (15 - DAY) <= 2
     elsif DAY_OF_WEEK == 'Fri' && (LAST_DAY_OF_MONTH == 'Sat' || LAST_DAY_OF_MONTH == 'Sun')
-      return (LAST_DAY_OF_MONTH_NUM.to_i - DAY.to_i) <= 2
+      return (LAST_DAY_OF_MONTH_NUM - DAY) <= 2
     end
     return false
-  end
-
-  def isLastDayOfTimePeriodOnWeekend
-    
   end
 
   def costPointSystemUsername
@@ -95,15 +91,15 @@ class SiteElement
   end
 
   def costPointTimeSlot
-    if DAY.to_i > 15
+    if DAY > 15
       @driver.find_element(:id, format("DAY%s_HRS-_0_E", DIFFERENCE_IN_DAYS_BETWEEN_TODAY_AND_16))
     else
-      @driver.find_element(:id, format("DAY%s_HRS-_0_E", DAY_to_i))
+      @driver.find_element(:id, format("DAY%s_HRS-_0_E", DAY))
     end
   end
 
   def costPointNewTimeSlot
-    @driver.find_element(:id, format("DAY%s_HRS-_0_N", DAY.to_i))
+    @driver.find_element(:id, format("DAY%s_HRS-_0_N", DAY))
   end
 
   def costPointSave
