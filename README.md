@@ -8,6 +8,7 @@
 ## Requirements:
     - Ruby (I may change this over to Java someday but I like not having to compile code)
     - Selenium Webdriver
+    - Chromedriver
 
 ## Install gems in this repository
 
@@ -41,7 +42,7 @@ For my setup, I chose to run this process using systemd. If my understanding is 
 
 ### Creating a service in systemd
 - `sudo vim /etc/systemd/system/timekeeper.service`
-- ```
+  ```
   [Unit]
   Descrption=Fills out timesheet automatically daily
   Wants=timekeeper.timer
@@ -58,7 +59,7 @@ For my setup, I chose to run this process using systemd. If my understanding is 
 
 ### Creating a timer in systemd
 - `sudo vim /etc/systemd/system/timekeeper.timer`
-- ```
+  ```
   [Unit]
   Description=Starting Time Keeper
   Requires=timekeeper.service
@@ -74,7 +75,7 @@ For my setup, I chose to run this process using systemd. If my understanding is 
 ### Enabling your timer
 - You shouldn't need to enable the service because the timer just calls the service anyway
 - `sudo systemctl enable timekeeper.timer`
-- - `sudo systemctl status timekeeper.timer` <= Do this to ensure that it is enabled
+  - `sudo systemctl status timekeeper.timer` <= Do this to ensure that it is enabled
 
 ### Debugging systemd
 If you cannot get the service to run, check the journal logs by running
