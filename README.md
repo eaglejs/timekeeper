@@ -1,9 +1,12 @@
 # Timekeeper for Deltek Timesheets
 
-## Purpose is to create a one-step process that eliminates human error while adding time. Thus, preventing punishment for being human. :)
+## Purpose is to create a one-step process that eliminates human error while adding time into Deltek. Thus, preventing punishment for being a human. :)
+
+***
+*Note*: This runs only for semi-monthly setups. When I take a job that requires bi-weekly, i'll add it in as something that is configurable.
 
 ## Requirements:
-    - Ruby
+    - Ruby (I may change this over to Java someday but I like not having to compile code)
     - Selenium Webdriver
 
 ## Install gems in this repository
@@ -11,11 +14,10 @@
 `bundle install`
 
 ## Fill out your config.example.json file and rename it to config.json
-  - All fields are required in the json file.
+  - All fields may be required, it just depends on your companies setup.
 
-## This is now officially one step process.
-
-You do have to add the cookies listed in the cookies section of the config.example.json. To do this:
+## You may need cookies for some companies
+This is needed if your company does 2-step verification for logging in. If you need to add the cookies listed in the cookies section of the config.example.json. To do this:
 - Open up your browser and log into the deltek time keeping application.
 - Once you authenticated, navigate to: `chrome://settings/siteData` in your web browser.
 - Search for `login.microsoft.com`, and click on the one result that you found.
@@ -34,32 +36,52 @@ i.e., `ruby deltek-timesheet.rb time=8`
 
 This will start up the selenium webdriver and open up Unisys's deltek url and input your credentials, and do your timesheet.
 
-## Running in Crontab
+## Running in Systemd at a certain time of day
+For my setup, I chose to run this process using systemd. If my understanding is correct, crontab is going to be deprecated eventually (OSX has already done this, and a lot of linux distros have already moved away from it.) To get started you will need to create a service and a timer.
 
-*** MAKE SURE YOU BACKUP YOUR CRON JOBS IF YOU HAVE ANY AS THIS BLOWS IT AWAY ***
-Make sure you run `rvm cron setup` < This will blow away your crontab >
+### Creating a service in systemd
+- `sudo vim /etc/systemd/system/timekeeper.service`
+- ```
+  [Unit]
+  Descrption=Fills out timesheet automatically daily
+  Wants=timekeeper.timer
 
-- type: `$ crontab -e`
-Here's an example crontab:
-```
-# Made by running `rvm cron setup`
-#sm start rvm
-PATH="/Users/jeagle/.rvm/gems/ruby-2.6.0/bin:/Users/jeagle/.rvm/gems/ruby-2.6.0@global/bin:/Users/jeagle/.rvm/rubies/ruby-2.6.0/bin:/Users/jeagle/.rvm/gems/ruby-2.6.0/bin:/Users/jeagle/.rvm/gems/ruby-2.6.0@global/bin:/Users/jeagle/.rvm/rubies/ruby-2.6.0/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:./node_modules/.bin:/usr/local/opt/go/libexec/bin:/usr/local/bin/tomcat-7:/Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/:/usr/local/sbin:/Users/jeagle/.rvm/bin"
-GEM_HOME='/Users/jeagle/.rvm/gems/ruby-2.6.0'
-GEM_PATH='/Users/jeagle/.rvm/gems/ruby-2.6.0:/Users/jeagle/.rvm/gems/ruby-2.6.0@global'
-MY_RUBY_HOME='/Users/jeagle/.rvm/rubies/ruby-2.6.0'
-IRBRC='/Users/jeagle/.rvm/rubies/ruby-2.6.0/.irbrc'
-RUBY_VERSION='ruby-2.6.0'
-#sm end rvm
+  [Service]
+  Type=oneshot
+  User=<your username>
+  Group=Admin #Check your group for admin, it could be wheel, adm, equivalent
+  ExecStart=/home/<your username>/path/to/respository/do-timesheet.sh
 
-30 8 * * 5 cd /Users/jeagle/ && sh do-timesheet.sh >> /Users/jeagle/cron.log 2>&1
-00 16 * * 1-4 cd /Users/jeagle/ && sh do-timesheet.sh >> /Users/jeagle/cron.log 2>&1
-#*/1 * * * * cd /Users/jeagle/ && sh do-timesheet.sh  >> /Users/jeagle/cron.log 2>&1
-```
+  [Install]
+  WantedBy=multi-user.target
+  ```
 
-I created a shell script that runs the timesheet and included it in the repository, just put it in your home folder and this setup should work.
+### Creating a timer in systemd
+- `sudo vim /etc/systemd/system/timekeeper.timer`
+- ```
+  [Unit]
+  Description=Starting Time Keeper
+  Requires=timekeeper.service
 
-*** In the future, i'm going to convert this cron job to systemd, it's easier and cleaner to maintain ***
+  [Timer]
+  Unit=timekeeper.service
+  OnCalendar=Mon..Fri *-*-* 15:00:00 # Runs Monday through Friday at 3pm
+
+  [Install]
+  WantedBy=timers.target
+  ```
+
+### Enabling your timer
+- You shouldn't need to enable the service because the timer just calls the service anyway
+- `sudo systemctl enable timekeeper.timer`
+- - `sudo systemctl status timekeeper.timer` <= Do this to ensure that it is enabled
+
+### Debugging systemd
+If you cannot get the service to run, check the journal logs by running
+`journalctl -S today -f -u timekeeper.service` or `sudo systemctl enable timekeeper.service`
+The first command will give you a live log so you can keep running tests againts and the other just prints out the last 20lines or so. But it should give you all you need to test an debug an issue if my instructions didn't work out for you.
+
+Enjoy! :)
 
 <p align="center">
   <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" alt="Kitty!">
