@@ -37,7 +37,7 @@ class SiteElement
     options.add_argument('--headless')
     options
   end
-  
+
   # optional
   def selenium_capabilities_chrome
     Selenium::WebDriver::Remote::Capabilities.chrome
@@ -46,7 +46,7 @@ class SiteElement
   def isFirstHalfOfMonth
     DAY < 16
   end
-  
+
   def isLastDayOfTimePeriod
     if (DAY == 15 || DAY == LAST_DAY_OF_MONTH_NUM)
       return true

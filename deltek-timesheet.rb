@@ -35,7 +35,7 @@ browser.costPointManageTimesheets.click
 
 sleep 2
 
-if DAY.to_i > 24 || DAY.to_i > 9
+if DAY.to_i > 24 || (DAY.to_i > 9 && DAY.to_i < 15)
   for a in 1..10 do
     browser.costPointScrollBar.click
   end
