@@ -4,3 +4,4 @@
 .vscode
 vendor
 config.json
+__pycache__
