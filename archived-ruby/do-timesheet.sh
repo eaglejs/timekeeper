@@ -8,4 +8,4 @@ if (( $H < 15 )); then
     exit 0;
 fi
 
-cd $HOME/repos/timekeeper/ && /usr/local/bin/python3 deltek_timesheet.py
+cd $HOME/repos/timekeeper/ && /Users/eaglejs/.rvm/rubies/ruby-3.0.0/bin/ruby deltek-timesheet.rb time=8

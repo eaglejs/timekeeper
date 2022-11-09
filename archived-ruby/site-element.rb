@@ -35,7 +35,7 @@ class SiteElement
 
   def selenium_options
     options = Selenium::WebDriver::Chrome::Options.new
-    options.add_argument('--headless')
+    #options.add_argument('--headless')
     options
   end
 
