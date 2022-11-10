@@ -36,7 +36,7 @@ try:
   browser.driver.implicitly_wait(10)
 
   if DAY > 24 or (DAY > 9 and DAY < 15):
-    for a in 10:
+    for a in range(0, 10):
       browser.driver.find_element(*browser.costPointScrollBar).click()
 
   wait.until(EC.presence_of_element_located(browser.costPointTimeSlot()))
