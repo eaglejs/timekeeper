@@ -54,7 +54,7 @@ class SiteElements():
 
   def selenium_options(self):
     options = Options()
-    # options.add_argument('--headless')
+    options.add_argument('--headless')
     return options
 
   def isFirstHalfOfMonth(self):

@@ -11,7 +11,11 @@ with open('config.json', 'r') as f:
 MONTH = Time.now().month
 DAY = Time.now().day
 YEAR = Time.now().year
+DAY_OF_WEEK = Time.now().strftime("%a")
 TIMEINPUT = 8
+if DAY_OF_WEEK == "Sat" or DAY_OF_WEEK == "Sun":
+  print("It's the weekend, nothing to do...")
+  raise SystemExit
 browser = SiteElements(data['url'], data['cookies'])
 wait = WebDriverWait(browser.driver, 10)
 
