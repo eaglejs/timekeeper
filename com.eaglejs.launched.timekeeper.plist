@@ -15,6 +15,10 @@
       <integer>15</integer>
       <key>Minute</key>
       <integer>00</integer>
+      <key>StandardOutPath</key>
+      <string>/var/logs/com.eaglejs.launched.timekeeper.stdout.log</string>
+      <key>StandardErrorPath</key>
+      <string>/var/logs/com.eaglejs.launched.timekeeper.stderror.log</string>
     </dict>
   </dict>
 </plist>
