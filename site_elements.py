@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from datetime import datetime as Time
 import calendar
+from webdriver_manager.chrome import ChromeDriverManager
 
 MONTH = Time.now().month
 print(("Month: {}").format(MONTH))
@@ -26,7 +27,7 @@ print(("Difference in Days Between Today and 16: {}").format(DIFFERENCE_IN_DAYS_
 
 class SiteElements():
   def __init__(self, url, cookies):
-    self.driver = webdriver.Chrome('chromedriver')
+    self.driver = webdriver.Chrome(ChromeDriverManager().install())
     self.driver.get(url)
     if len(cookies):
       self.driver.add_cookie(cookies)
