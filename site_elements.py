@@ -80,7 +80,7 @@ class SiteElements():
     return self.driver.switch_to.active_element.send_keys(':f2')
 
   def costPointConfirmSign(self):
-    return self.driver.switch_to.alert.accept
+    return self.driver.switch_to.alert.accept()
 
   def close_browser(self):
     return self.driver.quit

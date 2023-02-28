@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime as Time
+import time
 import json
 from site_elements import SiteElements
 
@@ -45,11 +46,8 @@ try:
 
   wait.until(EC.presence_of_element_located(browser.costPointTimeSlot()))
   browser.driver.find_element(*browser.costPointTimeSlot()).click()
-  browser.driver.implicitly_wait(3)
   browser.driver.find_element(*browser.costPointTimeSlot()).clear()
   browser.driver.find_element(*browser.costPointTimeSlot()).send_keys(TIMEINPUT)
-
-  browser.driver.implicitly_wait(2)
 
   browser.driver.find_element(*browser.costPointSave).click()
   wait.until(EC.presence_of_element_located(browser.costSaveMessage))
@@ -60,13 +58,12 @@ try:
     browser.driver.find_element(*browser.costPointSave).click()
 
   if browser.isLastDayOfTimePeriod():
-    browser.driver.implicitly_wait(5)
     browser.driver.find_element(*browser.costPointSign).click()
-    browser.driver.implicitly_wait(5)
+    time.sleep(5)
     browser.costPointConfirmSign()
     wait.until(EC.presence_of_element_located(browser.costSaveMessage))
 
-  browser.driver.implicitly_wait(5)
+  time.sleep(5)
 
   print(('Time entered for {}/{}/{} with time equal to {} hrs').format(MONTH, DAY, YEAR, TIMEINPUT))
 
