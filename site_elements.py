@@ -27,7 +27,8 @@ print(("Difference in Days Between Today and 16: {}").format(DIFFERENCE_IN_DAYS_
 
 class SiteElements():
   def __init__(self, url, cookies):
-    self.driver = webdriver.Chrome(ChromeDriverManager().install())
+    # self.driver = webdriver.Chrome(ChromeDriverManager().install())
+    self.driver = webdriver.Chrome(ChromeDriverManager(version='114.0.5735.90').install())
     self.driver.get(url)
     if len(cookies):
       self.driver.add_cookie(cookies)
