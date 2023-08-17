@@ -29,6 +29,7 @@ class SiteElements():
   def __init__(self, url, cookies):
     service = Service()
     options = webdriver.ChromeOptions()
+    # options.add_argument('--headless')
     self.driver = webdriver.Chrome(service=service, options=options)
     self.driver.get(url)
     if len(cookies):
@@ -54,11 +55,6 @@ class SiteElements():
   costPointNewPayType = (By.ID, 'UDT10_ID-_0_N')
   costPointSign = (By.ID, 'SIGN_BUT')
   costSaveMessage = (By.ID, 'mLink208_0')
-
-  def selenium_options(self):
-    options = Options()
-    options.add_argument('--headless')
-    return options
 
   def isFirstHalfOfMonth(self):
     return DAY < 16
