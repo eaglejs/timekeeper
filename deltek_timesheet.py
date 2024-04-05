@@ -29,14 +29,15 @@ try:
   browser.driver.find_element(*browser.costPointSystemInput).send_keys(data["system"])
   browser.driver.find_element(*browser.costPointLoginBtn).click()
 
+  # Commented out because CostPoint changed how we navigate to the timesheet
   # Wait until you are inside of Deltek
-  wait.until(EC.presence_of_element_located(browser.costPointNavTC))
+  # wait.until(EC.presence_of_element_located(browser.costPointNavTC))
 
   # Navigate to the timesheet
-  browser.driver.find_element(*browser.costPointNavTC).click()
-  browser.driver.find_element(*browser.costPointTimeBtn).click()
-  browser.driver.find_element(*browser.costPointTimeSheetsBtn).click()
-  browser.driver.find_element(*browser.costPointManageTimesheets).click()
+  # browser.driver.find_element(*browser.costPointNavTC).click()
+  # browser.driver.find_element(*browser.costPointTimeBtn).click()
+  # browser.driver.find_element(*browser.costPointTimeSheetsBtn).click()
+  # browser.driver.find_element(*browser.costPointManageTimesheets).click()
 
   browser.driver.implicitly_wait(10)
 
