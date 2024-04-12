@@ -9,4 +9,4 @@ if [[ $DO_NOT_RUN_TODAY == true || $H < 15 ]]; then
     exit 0;
 fi
 
-cd $HOME/repos/timekeeper/ && /usr/local/bin/python3 deltek_timesheet.py
+cd $HOME/repos/timekeeper/ && python3 deltek_timesheet.py
