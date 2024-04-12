@@ -1,5 +1,8 @@
 #!/bin/sh
-source $HOME/.profile
+source ~/.pip-local/bin/activate
+
+echo $(which python3)
+echo $(which pip3)
 
 H=$(date +%-H)
 DO_NOT_RUN_TODAY=false
